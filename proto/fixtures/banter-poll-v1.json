@@ -1,0 +1,10 @@
+{
+  "request": {
+    "source_device_id": "robot-example",
+    "response_device_id": "voice-example",
+    "ready": true,
+    "result": {"trigger_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "status": "completed"}
+  },
+  "response": {"trigger_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+  "empty_response": {"trigger_id": null}
+}

@@ -1,0 +1,66 @@
+{
+  "Header": {
+    "GenerationSoftware": {
+      "Vendor": "Sherman",
+      "Application": "generate.py",
+      "Version": "Rev A"
+    },
+    "CreationDate": "2026-09-01"
+  },
+  "GeneralSpecs": {
+    "ProjectId": {
+      "Name": "charging-interlock-rev-a",
+      "Revision": "A"
+    },
+    "Size": {
+      "X": 38.1,
+      "Y": 24.13
+    },
+    "LayerNumber": 2
+  },
+  "FilesAttributes": [
+    {
+      "Path": "charging-interlock-rev-a-F_Cu.gtl",
+      "FileFunction": "Copper,L1,Top"
+    },
+    {
+      "Path": "charging-interlock-rev-a-B_Cu.gbl",
+      "FileFunction": "Copper,L2,Bot"
+    },
+    {
+      "Path": "charging-interlock-rev-a-F_Mask.gts",
+      "FileFunction": "SolderMask,Top"
+    },
+    {
+      "Path": "charging-interlock-rev-a-B_Mask.gbs",
+      "FileFunction": "SolderMask,Bot"
+    },
+    {
+      "Path": "charging-interlock-rev-a-F_Silkscreen.gto",
+      "FileFunction": "Legend,Top"
+    },
+    {
+      "Path": "charging-interlock-rev-a-Edge_Cuts.gm1",
+      "FileFunction": "Profile"
+    },
+    {
+      "Path": "charging-interlock-rev-a-PTH.drl",
+      "FileFunction": "Plated,Drill"
+    },
+    {
+      "Path": "charging-interlock-rev-a-NPTH.drl",
+      "FileFunction": "NonPlated,Drill"
+    }
+  ],
+  "MaterialStackup": [
+    {
+      "Type": "Copper",
+      "Notes": "1 oz outer copper"
+    },
+    {
+      "Type": "Dielectric",
+      "Material": "FR4",
+      "Thickness": 1.6
+    }
+  ]
+}

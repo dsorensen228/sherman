@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sherman/banter-poll-request-v1",
+  "title": "Authenticated Jarvis v1 banter poll request",
+  "description": "Registers the configured pair and consumes one pending trigger only when ready. API version is carried by /v1/banter/poll. An outcome may be acknowledged repeatedly without replaying speech.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_device_id", "response_device_id", "ready"],
+  "properties": {
+    "source_device_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{1,100}$"},
+    "response_device_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{1,100}$"},
+    "ready": {"type": "boolean"},
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trigger_id", "status"],
+      "properties": {
+        "trigger_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+        "status": {"enum": ["completed", "failed"]}
+      }
+    }
+  }
+}

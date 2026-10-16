@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sherman/banter-poll-response-v1",
+  "title": "Authenticated Jarvis v1 banter poll response",
+  "description": "A consumed trigger is supplied once to script creation as trigger_id. Never retry creation or playback after an uncertain result.",
+  "type": "object",
+  "required": ["trigger_id"],
+  "properties": {
+    "trigger_id": {"type": ["string", "null"], "pattern": "^[a-f0-9]{32}$"}
+  }
+}

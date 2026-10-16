@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sherman local presentation wake lease",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "issued_at_monotonic_s", "expires_at_monotonic_s"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "request_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "issued_at_monotonic_s": {"type": "number", "minimum": 0},
+    "expires_at_monotonic_s": {"type": "number", "exclusiveMinimum": 0}
+  },
+  "$comment": "At most 1024 UTF-8 bytes. Finite shared-boot monotonic seconds. 0 < expires-issued <= 300; issued <= now < expires. Face ignores leases issued before its own start. A presentation-only lease; never changes native quiet/motion policy."
+}

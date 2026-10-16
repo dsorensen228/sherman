@@ -1,0 +1,18 @@
+{
+  "name": "sherman-controller", "version": 1,
+  "sync": [165, 90], "max_payload": 64, "profile": 1462820865,
+  "messages": {
+    "HELLO": {"id": 1, "format": "I", "fields": ["profile"]},
+    "HEARTBEAT": {"id": 2, "format": "I", "fields": ["deadline_ms"]},
+    "ARM": {"id": 3, "format": "I", "fields": ["deadline_ms"]},
+    "TWIST": {"id": 4, "format": "IhhHI", "fields": ["deadline_ms", "linear_mm_s", "angular_mrad_s", "accel_mm_s2", "action_id"]},
+    "STOP": {"id": 5, "format": "", "fields": []},
+    "CLEAR_FAULT": {"id": 6, "format": "", "fields": []},
+    "CONFIGURE_LIMITS": {"id": 7, "format": "HHH", "fields": ["speed_mm_s", "angular_mrad_s", "accel_mm_s2"]},
+    "SELF_TEST": {"id": 8, "format": "", "fields": []},
+    "STATUS": {"id": 128, "format": "IIIIIIIIBBBB", "fields": ["uptime_ms", "profile", "faults", "first_fault_ms", "last_sequence", "action_id", "rejected", "rx_errors", "armed", "qualified", "watchdog_reset", "self_test_ok"]},
+    "SENSORS": {"id": 129, "format": "IHHHHhhhhhhBBIII", "fields": ["uptime_ms", "cliff_left_mm", "cliff_right_mm", "battery_mv", "soc_centi_percent", "ax_mg", "ay_mg", "az_mg", "gx_mdeg_s", "gy_mdeg_s", "gz_mdeg_s", "valid_mask", "input_mask", "cliff_left_age_ms", "cliff_right_age_ms", "imu_age_ms"]},
+    "ODOMETRY": {"id": 130, "format": "IIIhhHH", "fields": ["uptime_ms", "left_ticks", "right_ticks", "left_mm_s", "right_mm_s", "interval_ms", "invalid_transitions"]}
+  },
+  "faults": {"LINK": 1, "COMMAND": 2, "SENSOR": 4, "CLIFF": 8, "CHARGING": 16, "DRIVER": 32, "POWER": 64, "TILT": 128, "ENCODER": 256, "PROTOCOL": 512, "UNQUALIFIED": 1024, "LOOP": 2048}
+}

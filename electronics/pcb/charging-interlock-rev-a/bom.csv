@@ -1,0 +1,15 @@
+references,quantity,value,footprint,manufacturer_part,notes
+U1,1,SN74HC08N,DIP-14_W7.62mm_Socket,Texas Instruments SN74HC08N,"Quad 2-input AND gate, TI SN74HC08N"
+Q1,1,2N3904BU,TO-92_Inline,onsemi 2N3904BU,"onsemi 2N3904BU; pin 1 E, 2 B, 3 C"
+C1,1,100nF,C_Disc_D5.0mm_W2.5mm_P2.54mm,KEMET C315C104K5R5TA or equivalent X7R,100 nF X7R bypass capacitor
+R1,1,10k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,CHARGE_ABSENT pull-up
+R2,1,47k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,VBUS-to-Q1 base resistor
+R3,1,100k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,Q1 base-emitter pull-down
+R4,1,10k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,GP3 request pull-down
+R5,1,10k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,Motor-gate output pull-down
+R6,1,10k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,GP12 request pull-down
+R7,1,4.7k,R_Axial_Vertical_P2.54mm,1% axial through-hole resistor,DRV8833 sleep output pull-down
+J1,1,PICO,PinHeader_1x05_P2.54mm_Vertical,2.54 mm breakaway male header,"Pico harness: 3V3, GND, GP3, GP12, CHARGE_ABSENT/GP6"
+J2,1,CHARGER,PinHeader_1x03_P2.54mm_Vertical,2.54 mm breakaway male header,"Adafruit #4755 harness: VBUS, PGOOD, GND"
+J3,1,OUTPUTS,PinHeader_1x03_P2.54mm_Vertical,2.54 mm breakaway male header,"Outputs: #2808-M CTRL, DRV8833 SLP, GND"
+U1-SOCKET,1,14-pin DIP socket,DIP-14_W7.62mm_Socket,TE 1-2199298-3,"Socket for U1; install socket, then IC"

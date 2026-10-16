@@ -1,0 +1,12 @@
+{
+  "board_width_mm": 38.1,
+  "board_height_mm": 24.13,
+  "components": 13,
+  "pads": 44,
+  "nets": 9,
+  "segments": 86,
+  "vias": 3,
+  "minimum_clearance_mm": 0.3048,
+  "signal_width_mm": 0.4064,
+  "supply_width_mm": 0.6096
+}

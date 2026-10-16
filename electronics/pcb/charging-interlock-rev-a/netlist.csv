@@ -1,0 +1,45 @@
+net,endpoint,pin,function
+GP3,U1,1,"Quad 2-input AND gate, TI SN74HC08N"
+CHARGE_ABSENT,U1,2,"Quad 2-input AND gate, TI SN74HC08N"
+RAIL_EN,U1,3,"Quad 2-input AND gate, TI SN74HC08N"
+GP12,U1,4,"Quad 2-input AND gate, TI SN74HC08N"
+CHARGE_ABSENT,U1,5,"Quad 2-input AND gate, TI SN74HC08N"
+SLEEP_EN,U1,6,"Quad 2-input AND gate, TI SN74HC08N"
+GND,U1,7,"Quad 2-input AND gate, TI SN74HC08N"
+NC8,U1,8,"Quad 2-input AND gate, TI SN74HC08N"
+GND,U1,9,"Quad 2-input AND gate, TI SN74HC08N"
+GND,U1,10,"Quad 2-input AND gate, TI SN74HC08N"
+NC11,U1,11,"Quad 2-input AND gate, TI SN74HC08N"
+GND,U1,12,"Quad 2-input AND gate, TI SN74HC08N"
+GND,U1,13,"Quad 2-input AND gate, TI SN74HC08N"
+3V3,U1,14,"Quad 2-input AND gate, TI SN74HC08N"
+GND,Q1,1,"onsemi 2N3904BU; pin 1 E, 2 B, 3 C"
+QBASE,Q1,2,"onsemi 2N3904BU; pin 1 E, 2 B, 3 C"
+CHARGE_ABSENT,Q1,3,"onsemi 2N3904BU; pin 1 E, 2 B, 3 C"
+3V3,C1,1,100 nF X7R bypass capacitor
+GND,C1,2,100 nF X7R bypass capacitor
+3V3,R1,1,CHARGE_ABSENT pull-up
+CHARGE_ABSENT,R1,2,CHARGE_ABSENT pull-up
+VBUS,R2,1,VBUS-to-Q1 base resistor
+QBASE,R2,2,VBUS-to-Q1 base resistor
+QBASE,R3,1,Q1 base-emitter pull-down
+GND,R3,2,Q1 base-emitter pull-down
+GP3,R4,1,GP3 request pull-down
+GND,R4,2,GP3 request pull-down
+RAIL_EN,R5,1,Motor-gate output pull-down
+GND,R5,2,Motor-gate output pull-down
+GP12,R6,1,GP12 request pull-down
+GND,R6,2,GP12 request pull-down
+SLEEP_EN,R7,1,DRV8833 sleep output pull-down
+GND,R7,2,DRV8833 sleep output pull-down
+3V3,J1,1,Pico physical pin 36 / 3V3(OUT)
+GND,J1,2,Pico physical pin 23 / GND
+GP3,J1,3,Pico physical pin 5 / GP3
+GP12,J1,4,Pico physical pin 16 / GP12
+CHARGE_ABSENT,J1,5,Pico physical pin 9 / GP6 input-only observer
+VBUS,J2,1,Adafruit #4755 VBUS
+CHARGE_ABSENT,J2,2,Adafruit #4755 PGOOD
+GND,J2,3,Adafruit #4755 GND
+RAIL_EN,J3,1,Pololu #2808-M CTRL
+SLEEP_EN,J3,2,DRV8833 SLP/nSLEEP
+GND,J3,3,Driver/power-gate GND

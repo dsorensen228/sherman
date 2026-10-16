@@ -1,0 +1,76 @@
+#!/bin/sh
+
+# Minimal start-only fixture for S99sherman-face lifecycle tests.
+set -eu
+
+pid_file=
+daemon=
+app=
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -p)
+            pid_file=$2
+            shift 2
+            ;;
+        -x)
+            daemon=$2
+            shift 2
+            ;;
+        --)
+            shift
+            app=$1
+            break
+            ;;
+        *) shift ;;
+    esac
+done
+
+[ -n "$pid_file" ]
+[ -n "$daemon" ]
+[ -n "$app" ]
+
+case "$FAKE_FACE_SCENARIO" in
+    delayed|degraded)
+        (
+            trap 'exit 0' TERM INT
+            sleep "${FAKE_FACE_READY_DELAY_S:-0.3}"
+            if [ "$FAKE_FACE_SCENARIO" = delayed ]; then
+                printf '%s\n' \
+                    '{"state":"running","mode":"personality","personality_backend":"native-personality-c-v1","personality_degraded":false}' \
+                    >"$SHERMAN_FACE_HEALTH_FILE"
+            else
+                printf '%s\n' \
+                    '{"state":"running","mode":"personality","personality_backend":"safe-fallback","personality_degraded":true}' \
+                    >"$SHERMAN_FACE_HEALTH_FILE"
+            fi
+            while :; do sleep 1; done
+        ) &
+        ;;
+    early-exit)
+        (
+            printf '%s\n' 'fixture personality loader failed' >&2
+            exit 7
+        ) &
+        ;;
+    oversized)
+        (
+            trap 'exit 0' TERM INT
+            printf '%s' '{"state":"running","mode":"personality","padding":"' \
+                >"$SHERMAN_FACE_HEALTH_FILE"
+            dd if=/dev/zero bs=5120 count=1 2>/dev/null | tr '\000' x \
+                >>"$SHERMAN_FACE_HEALTH_FILE"
+            printf '%s\n' '"}' >>"$SHERMAN_FACE_HEALTH_FILE"
+            while :; do sleep 1; done
+        ) &
+        ;;
+    *)
+        echo "unknown FAKE_FACE_SCENARIO: $FAKE_FACE_SCENARIO" >&2
+        exit 2
+        ;;
+esac
+
+fixture_pid=$!
+printf '%s\n' "$fixture_pid" >"$pid_file"
+mkdir -p "$SHERMAN_FACE_PROC_ROOT/$fixture_pid"
+printf '%s\000%s\000' "$daemon" "$app" \
+    >"$SHERMAN_FACE_PROC_ROOT/$fixture_pid/cmdline"

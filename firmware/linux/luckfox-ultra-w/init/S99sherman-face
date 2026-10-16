@@ -1,0 +1,210 @@
+#!/bin/sh
+
+# Personality-driven face service for the vendor Buildroot image.
+
+DAEMON=${SHERMAN_FACE_DAEMON:-/usr/bin/python3}
+APP=${SHERMAN_FACE_APP:-/opt/sherman/display/runtime/run_face.py}
+PID_FILE=${SHERMAN_FACE_PID_FILE:-/run/sherman-face.pid}
+LIBRARY=${SHERMAN_EYES_LIBRARY:-/opt/sherman/lib/libsherman_procedural_eyes_c.so}
+PERSONALITY_LIBRARY=${SHERMAN_PERSONALITY_LIBRARY:-/opt/sherman/lib/libsherman_personality_c.so}
+CONFIG=${SHERMAN_FACE_CONFIG:-/etc/sherman/face-runtime.json}
+PYTHON_PATH=${SHERMAN_FACE_PYTHONPATH:-/opt/sherman/display:/opt/sherman/display/procedural_eyes}
+HEALTH_FILE=${SHERMAN_FACE_HEALTH_FILE:-/run/sherman-face.health.json}
+ERROR_FILE=${SHERMAN_FACE_ERROR_FILE:-/run/sherman-face.error}
+STARTUP_DIAGNOSTIC=${SHERMAN_FACE_STARTUP_DIAGNOSTIC:-/run/sherman-face.startup-diagnostic}
+SPI_DEVICE=${SHERMAN_FACE_SPI_DEVICE:-/dev/spidev0.0}
+PROC_ROOT=${SHERMAN_FACE_PROC_ROOT:-/proc}
+STARTUP_POLLS=${SHERMAN_FACE_STARTUP_POLLS:-100}
+MAX_ERROR_BYTES=4096
+
+case "$STARTUP_POLLS" in
+    ''|*[!0-9]*) echo "invalid SHERMAN_FACE_STARTUP_POLLS" >&2; exit 2 ;;
+esac
+if [ "$STARTUP_POLLS" -lt 1 ] || [ "$STARTUP_POLLS" -gt 600 ]; then
+    echo "SHERMAN_FACE_STARTUP_POLLS must be in 1..600" >&2
+    exit 2
+fi
+
+cmdline_has_argument() {
+    expected_argument=$1
+    tr '\000' '\n' <"$PROC_ROOT/$pid/cmdline" 2>/dev/null | (
+        matched=1
+        while IFS= read -r argument; do
+            if [ "$argument" = "$expected_argument" ]; then
+                matched=0
+                break
+            fi
+        done
+        exit "$matched"
+    )
+}
+
+is_running() {
+    [ -r "$PID_FILE" ] || return 1
+    pid=$(sed -n '1p' "$PID_FILE")
+    case "$pid" in
+        ''|*[!0-9]*) return 1 ;;
+    esac
+    kill -0 "$pid" 2>/dev/null || return 1
+    [ -r "$PROC_ROOT/$pid/cmdline" ] || return 1
+    cmdline_has_argument "$DAEMON" || return 1
+    cmdline_has_argument "$APP"
+}
+
+show_latest_error() {
+    [ -s "$ERROR_FILE" ] || return 0
+    echo "latest sherman-face error (last $MAX_ERROR_BYTES bytes):" >&2
+    tail -c "$MAX_ERROR_BYTES" "$ERROR_FILE" >&2
+}
+
+health_is_bounded() {
+    [ -r "$HEALTH_FILE" ] || return 1
+    health_bytes=$(wc -c <"$HEALTH_FILE" 2>/dev/null | tr -d '[:space:]')
+    case "$health_bytes" in
+        ''|*[!0-9]*) return 1 ;;
+    esac
+    [ "$health_bytes" -gt 0 ] && [ "$health_bytes" -le 4096 ]
+}
+
+health_ready() {
+    health_is_bounded \
+        && grep -F '"state":"running"' "$HEALTH_FILE" >/dev/null 2>&1 \
+        && grep -F '"mode":"personality"' "$HEALTH_FILE" >/dev/null 2>&1 \
+        && grep -F '"personality_backend":"native-personality-c-v1"' \
+            "$HEALTH_FILE" >/dev/null 2>&1 \
+        && grep -F '"personality_degraded":false' \
+            "$HEALTH_FILE" >/dev/null 2>&1
+}
+
+health_reports_error() {
+    health_is_bounded \
+        && grep -F '"state":"error"' "$HEALTH_FILE" >/dev/null 2>&1
+}
+
+health_reports_running() {
+    health_is_bounded \
+        && grep -F '"state":"running"' "$HEALTH_FILE" >/dev/null 2>&1
+}
+
+record_startup_failure() {
+    failure_reason=$1
+    diagnostic_tmp=$STARTUP_DIAGNOSTIC.$$
+    {
+        printf 'reason: %s\n' "$failure_reason"
+        if [ -r "$HEALTH_FILE" ]; then
+            printf '%s\n' 'health (first 2048 bytes):'
+            dd if="$HEALTH_FILE" bs=2048 count=1 2>/dev/null
+            printf '\n'
+        fi
+        if [ -r "$ERROR_FILE" ]; then
+            printf '%s\n' 'stderr (last 1800 bytes):'
+            tail -c 1800 "$ERROR_FILE" 2>/dev/null
+            printf '\n'
+        fi
+    } >"$diagnostic_tmp" 2>/dev/null || return 0
+    chmod 0600 "$diagnostic_tmp" 2>/dev/null || true
+    mv "$diagnostic_tmp" "$STARTUP_DIAGNOSTIC" 2>/dev/null || \
+        rm -f "$diagnostic_tmp"
+}
+
+fail_start() {
+    failure_reason=$1
+    echo "$failure_reason" >&2
+    record_startup_failure "$failure_reason"
+    show_latest_error
+    if is_running; then
+        stop >/dev/null 2>&1 || true
+    else
+        rm -f "$PID_FILE"
+    fi
+    return 1
+}
+
+start() {
+    if is_running; then
+        echo "sherman-face already running"
+        return 0
+    fi
+    [ -x "$DAEMON" ] || { echo "missing $DAEMON" >&2; return 1; }
+    [ -r "$APP" ] || { echo "missing $APP" >&2; return 1; }
+    [ -r "$LIBRARY" ] || { echo "missing $LIBRARY" >&2; return 1; }
+    [ -r "$PERSONALITY_LIBRARY" ] || { echo "missing $PERSONALITY_LIBRARY" >&2; return 1; }
+    [ -r "$CONFIG" ] || { echo "missing $CONFIG" >&2; return 1; }
+    [ -c "$SPI_DEVICE" ] || { echo "missing $SPI_DEVICE" >&2; return 1; }
+
+    rm -f "$PID_FILE"
+    rm -f "$HEALTH_FILE" || return 1
+    rm -f "$STARTUP_DIAGNOSTIC" || return 1
+    : >"$ERROR_FILE" || return 1
+    chmod 0600 "$ERROR_FILE" || return 1
+    if ! PYTHONPATH=$PYTHON_PATH \
+        SHERMAN_EYES_LIBRARY=$LIBRARY \
+        SHERMAN_PERSONALITY_LIBRARY=$PERSONALITY_LIBRARY \
+        start-stop-daemon -S -q -b -m -p "$PID_FILE" -x "$DAEMON" -- \
+        "$APP" --config "$CONFIG" \
+        --health-file "$HEALTH_FILE" >/dev/null 2>"$ERROR_FILE"; then
+        fail_start "sherman-face launcher failed"
+        return 1
+    fi
+
+    startup_poll=0
+    while [ "$startup_poll" -lt "$STARTUP_POLLS" ]; do
+        if ! is_running; then
+            fail_start "sherman-face exited before publishing readiness"
+            return 1
+        fi
+        if health_ready; then
+            rm -f "$STARTUP_DIAGNOSTIC"
+            echo "started sherman-face"
+            return 0
+        fi
+        if health_reports_running; then
+            fail_start "sherman-face published non-production readiness"
+            return 1
+        fi
+        if health_reports_error; then
+            fail_start "sherman-face reported an error before readiness"
+            return 1
+        fi
+        startup_poll=$((startup_poll + 1))
+        sleep 0.1
+    done
+    fail_start "sherman-face readiness timed out after $STARTUP_POLLS polls"
+    return 1
+}
+
+stop() {
+    if ! is_running; then
+        rm -f "$PID_FILE"
+        echo "sherman-face is not running"
+        return 0
+    fi
+    pid=$(sed -n '1p' "$PID_FILE")
+    kill -TERM "$pid" 2>/dev/null || true
+    remaining=30
+    while kill -0 "$pid" 2>/dev/null && [ "$remaining" -gt 0 ]; do
+        sleep 0.1
+        remaining=$((remaining - 1))
+    done
+    if kill -0 "$pid" 2>/dev/null; then
+        kill -KILL "$pid" 2>/dev/null || true
+    fi
+    rm -f "$PID_FILE"
+    echo "stopped sherman-face"
+}
+
+case "${1:-}" in
+    start) start ;;
+    stop) stop ;;
+    restart) stop; start ;;
+    status)
+        if is_running; then
+            echo "sherman-face is running"
+        else
+            echo "sherman-face is stopped"
+            show_latest_error
+            exit 1
+        fi
+        ;;
+    *) echo "usage: $0 {start|stop|restart|status}" >&2; exit 2 ;;
+esac

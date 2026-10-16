@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.16)
+project(sherman_procedural_eyes_cpp LANGUAGES CXX)
+
+add_library(sherman_procedural_eyes_cpp STATIC src/procedural_eyes.cpp)
+target_include_directories(sherman_procedural_eyes_cpp PUBLIC include)
+target_compile_features(sherman_procedural_eyes_cpp PUBLIC cxx_std_17)
+target_compile_options(sherman_procedural_eyes_cpp PRIVATE -Wall -Wextra -Wpedantic)
+set_target_properties(sherman_procedural_eyes_cpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+add_library(sherman_procedural_eyes_c SHARED src/procedural_eyes_c.cpp)
+target_link_libraries(sherman_procedural_eyes_c PRIVATE sherman_procedural_eyes_cpp)
+target_include_directories(sherman_procedural_eyes_c PUBLIC include)
+target_compile_features(sherman_procedural_eyes_c PUBLIC cxx_std_17)
+target_compile_options(sherman_procedural_eyes_c PRIVATE -Wall -Wextra -Wpedantic)
+
+add_executable(procedural_eyes_cpp_test tests/procedural_eyes_test.cpp)
+target_link_libraries(procedural_eyes_cpp_test PRIVATE sherman_procedural_eyes_cpp)
+target_compile_options(procedural_eyes_cpp_test PRIVATE -Wall -Wextra -Wpedantic -UNDEBUG)
+
+add_executable(procedural_eyes_c_test tests/procedural_eyes_c_test.cpp)
+target_link_libraries(procedural_eyes_c_test PRIVATE sherman_procedural_eyes_c)
+target_compile_options(procedural_eyes_c_test PRIVATE -Wall -Wextra -Wpedantic -UNDEBUG)
+
+add_executable(procedural_eyes_benchmark tools/benchmark.cpp)
+target_link_libraries(procedural_eyes_benchmark PRIVATE sherman_procedural_eyes_cpp)
+target_compile_options(procedural_eyes_benchmark PRIVATE -Wall -Wextra -Wpedantic)
+
+add_executable(procedural_eyes_render_frame tools/render_frame.cpp)
+target_link_libraries(procedural_eyes_render_frame PRIVATE sherman_procedural_eyes_cpp)
+target_compile_options(procedural_eyes_render_frame PRIVATE -Wall -Wextra -Wpedantic)
+
+enable_testing()
+add_test(NAME procedural_eyes_cpp_test COMMAND procedural_eyes_cpp_test)
+add_test(NAME procedural_eyes_c_test COMMAND procedural_eyes_c_test)

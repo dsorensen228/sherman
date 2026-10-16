@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sherman:banter-script:1",
+  "title": "Generated banter content v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "exchanges"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "exchanges": {
+      "type": "array", "minItems": 1, "maxItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["sherman", "emotion", "jarvis"],
+        "properties": {
+          "sherman": {"type": "string", "minLength": 1, "maxLength": 180},
+          "emotion": {"enum": ["curious", "pleased", "skeptical", "indignant", "conspiratorial"]},
+          "jarvis": {"type": "string", "minLength": 1, "maxLength": 240}
+        }
+      }
+    }
+  }
+}

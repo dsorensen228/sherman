@@ -1,0 +1,3 @@
+component,quantity,model,fit_notes
+Adafruit BQ24074 charger #4755,1,stl/adafruit-4755-bq24074-envelope.stl,The new power-path charger installed in Sherman
+Sherman charge-interlock Rev B,1,stl/sherman-charging-interlock-rev-b-envelope.stl,One populated installed board; the second populated unit is the tested spare

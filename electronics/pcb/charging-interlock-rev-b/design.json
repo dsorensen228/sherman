@@ -1,0 +1,253 @@
+{
+  "revision": "B",
+  "board_mm": [
+    38.1,
+    24.13
+  ],
+  "mounts_mm": [
+    [
+      2.54,
+      2.54
+    ],
+    [
+      35.56,
+      2.54
+    ],
+    [
+      2.54,
+      21.59
+    ],
+    [
+      35.56,
+      21.59
+    ]
+  ],
+  "components": [
+    {
+      "ref": "U1",
+      "value": "SN74HC08N",
+      "part": "Texas Instruments SN74HC08N",
+      "library": "Package_DIP",
+      "footprint": "DIP-14_W7.62mm_Socket",
+      "at": [
+        10.16,
+        14.986
+      ],
+      "rotation": 90,
+      "nets": [
+        "GP3",
+        "CHARGE_ABSENT",
+        "RAIL_EN",
+        "GP12",
+        "CHARGE_ABSENT",
+        "SLEEP_EN",
+        "GND",
+        "NC8",
+        "GND",
+        "GND",
+        "NC11",
+        "GND",
+        "GND",
+        "3V3"
+      ]
+    },
+    {
+      "ref": "Q1",
+      "value": "2N3904BU",
+      "part": "onsemi 2N3904BU",
+      "library": "Package_TO_SOT_THT",
+      "footprint": "TO-92_Inline_Wide",
+      "at": [
+        30.988,
+        15.24
+      ],
+      "rotation": 90,
+      "nets": [
+        "GND",
+        "QBASE",
+        "CHARGE_ABSENT"
+      ]
+    },
+    {
+      "ref": "C1",
+      "value": "100nF",
+      "part": "KEMET C315C104K5R5TA",
+      "library": "Capacitor_THT",
+      "footprint": "C_Disc_D3.8mm_W2.6mm_P2.50mm",
+      "at": [
+        10.16,
+        3.81
+      ],
+      "rotation": 0,
+      "nets": [
+        "3V3",
+        "GND"
+      ]
+    },
+    {
+      "ref": "R1",
+      "value": "10k",
+      "part": "Yageo MFR-25FRF52-10K",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        3.81,
+        17.272
+      ],
+      "rotation": 0,
+      "nets": [
+        "3V3",
+        "CHARGE_ABSENT"
+      ]
+    },
+    {
+      "ref": "R2",
+      "value": "47k",
+      "part": "Yageo MFR-25FRF52-47K",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        31.496,
+        18.034
+      ],
+      "rotation": 180,
+      "nets": [
+        "VBUS",
+        "QBASE"
+      ]
+    },
+    {
+      "ref": "R3",
+      "value": "100k",
+      "part": "Yageo MFR-25FBF52-100K",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        35.56,
+        13.97
+      ],
+      "rotation": 270,
+      "nets": [
+        "QBASE",
+        "GND"
+      ]
+    },
+    {
+      "ref": "R4",
+      "value": "10k",
+      "part": "Yageo MFR-25FRF52-10K",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        3.81,
+        13.97
+      ],
+      "rotation": 0,
+      "nets": [
+        "GP3",
+        "GND"
+      ]
+    },
+    {
+      "ref": "R5",
+      "value": "10k",
+      "part": "Yageo MFR-25FRF52-10K",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        3.81,
+        10.414
+      ],
+      "rotation": 0,
+      "nets": [
+        "RAIL_EN",
+        "GND"
+      ]
+    },
+    {
+      "ref": "R6",
+      "value": "10k",
+      "part": "Yageo MFR-25FRF52-10K",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        3.81,
+        6.858
+      ],
+      "rotation": 0,
+      "nets": [
+        "GP12",
+        "GND"
+      ]
+    },
+    {
+      "ref": "R7",
+      "value": "4.7k",
+      "part": "Yageo MFR-25FRF52-4K7",
+      "library": "Resistor_THT",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+      "at": [
+        29.464,
+        5.588
+      ],
+      "rotation": 0,
+      "nets": [
+        "SLEEP_EN",
+        "GND"
+      ]
+    },
+    {
+      "ref": "J1",
+      "value": "PICO",
+      "part": "Samtec TSW-140-07-L-S cut to 5 positions",
+      "library": "Connector_PinHeader_2.54mm",
+      "footprint": "PinHeader_1x05_P2.54mm_Vertical",
+      "at": [
+        7.112,
+        21.336
+      ],
+      "rotation": 90,
+      "nets": [
+        "3V3",
+        "GND",
+        "GP3",
+        "GP12",
+        "CHARGE_ABSENT"
+      ]
+    },
+    {
+      "ref": "J2",
+      "value": "CHARGER",
+      "part": "Samtec TSW-140-07-L-S cut to 3 positions",
+      "library": "Connector_PinHeader_2.54mm",
+      "footprint": "PinHeader_1x03_P2.54mm_Vertical_OpenSilk",
+      "at": [
+        25.908,
+        21.59
+      ],
+      "rotation": 90,
+      "nets": [
+        "VBUS",
+        "CHARGE_ABSENT",
+        "GND"
+      ]
+    },
+    {
+      "ref": "J3",
+      "value": "OUTPUTS",
+      "part": "Samtec TSW-140-07-L-S cut to 3 positions",
+      "library": "Connector_PinHeader_2.54mm",
+      "footprint": "PinHeader_1x03_P2.54mm_Vertical",
+      "at": [
+        17.78,
+        2.54
+      ],
+      "rotation": 90,
+      "nets": [
+        "RAIL_EN",
+        "SLEEP_EN",
+        "GND"
+      ]
+    }
+  ]
+}

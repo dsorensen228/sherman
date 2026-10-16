@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "board_sha256": "29a9bf9f5ec886b01def7225d7ce255c5ed3578bcf456e922ebf410c4dfad475",
+  "errors": [],
+  "minimum_body_clearance_mm": 0.702,
+  "closest_body_pair": [
+    "R1",
+    "R4"
+  ],
+  "copper_layers": 2,
+  "component_pads": 44,
+  "electrical_nets": 11,
+  "plated_drills": 47,
+  "mounting_drills": 4,
+  "minimum_copper_clearance_mm": 0.508,
+  "minimum_drill_clearance_mm": 1.34281
+}

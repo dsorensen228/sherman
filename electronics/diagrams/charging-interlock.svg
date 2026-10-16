@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Sherman W1 automatic charging interlock wiring diagram</title>
+  <desc id="desc">Power-path overview and internal circuit of the ordered revision-A interlock PCB, with external J1 Pico, J2 charger, and J3 output wiring.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; }
+      .component { fill: #f1f5f9; stroke: #334155; stroke-width: 2.5; }
+      .logic { fill: #eef2ff; stroke: #4338ca; stroke-width: 2.5; }
+      .charger { fill: #fff7ed; stroke: #c2410c; stroke-width: 2.5; }
+      .motor { fill: #ecfdf5; stroke: #047857; stroke-width: 2.5; }
+      .title { font: 700 30px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .section { font: 700 20px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .label { font: 600 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .small { font: 500 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .tiny { font: 500 12px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .pin { font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #0f172a; }
+      .wire { fill: none; stroke: #334155; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .power { fill: none; stroke: #dc2626; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .charge { fill: none; stroke: #ea580c; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .logic-wire { fill: none; stroke: #4338ca; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .inhibit { fill: none; stroke: #7c3aed; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .ground { fill: none; stroke: #0f172a; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .rail3v3 { fill: none; stroke: #0284c7; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .node { fill: #0f172a; }
+      .node-purple { fill: #7c3aed; }
+      .node-blue { fill: #0284c7; }
+      .note { fill: #fefce8; stroke: #ca8a04; stroke-width: 2; }
+    </style>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1600" height="1080"/>
+  <text class="title" x="48" y="50">Sherman W1 — automatic charging interlock</text>
+  <text class="subtitle" x="48" y="77">Charge input disables motor power and driver sleep in hardware; firmware cannot override it.</text>
+
+  <!-- Power-path overview -->
+  <rect class="panel" x="40" y="98" width="1520" height="230" rx="10"/>
+  <text class="section" x="60" y="128">1. Split power path</text>
+
+  <rect class="charger" x="60" y="154" width="170" height="62" rx="8"/>
+  <text class="label" x="145" y="179" text-anchor="middle">Exterior USB-C</text>
+  <text class="small" x="145" y="201" text-anchor="middle">or dock-switched 5 V</text>
+  <path class="charge" d="M230 185 H300" marker-end="url(#arrow-orange)"/>
+
+  <rect class="charger" x="300" y="130" width="250" height="158" rx="8"/>
+  <text class="label" x="425" y="157" text-anchor="middle">Adafruit #4755</text>
+  <text class="small" x="425" y="178" text-anchor="middle">BQ24074 power-path charger</text>
+  <text class="pin" x="316" y="207">IN / VBUS</text>
+  <text class="pin" x="446" y="239">BATT/LIPO</text>
+  <text class="pin" x="456" y="274">LOAD/OUT</text>
+
+  <rect class="component" x="620" y="154" width="172" height="62" rx="8"/>
+  <text class="label" x="706" y="179" text-anchor="middle">Protected 1S LiPo</text>
+  <text class="small" x="706" y="201" text-anchor="middle">Adafruit #258</text>
+  <path class="power" d="M792 185 H822"/>
+  <rect class="component" x="822" y="164" width="110" height="42" rx="6"/>
+  <text class="label" x="877" y="190" text-anchor="middle">BAT fuse</text>
+  <path class="power" d="M932 185 H1000"/>
+  <circle class="node" cx="1000" cy="185" r="6"/>
+
+  <path class="power" d="M1000 185 H1050"/>
+  <rect class="motor" x="1050" y="137" width="205" height="96" rx="8"/>
+  <text class="label" x="1152" y="164" text-anchor="middle">Pololu #2808-M</text>
+  <text class="small" x="1152" y="186" text-anchor="middle">automatic motor gate</text>
+  <text class="pin" x="1064" y="217">VIN</text>
+  <text class="pin" x="1200" y="217">VOUT</text>
+  <path class="power" d="M1255 185 H1300" marker-end="url(#arrow-red)"/>
+  <rect class="motor" x="1300" y="137" width="218" height="96" rx="8"/>
+  <text class="label" x="1409" y="164" text-anchor="middle">DRV8833 VIN</text>
+  <text class="small" x="1409" y="186" text-anchor="middle">motor current only</text>
+  <text class="small" x="1409" y="211" text-anchor="middle">0 V whenever inhibited</text>
+
+  <path class="power" d="M1000 185 V252 H550"/>
+  <circle class="node" cx="550" cy="252" r="5"/>
+  <text class="small" x="780" y="246" text-anchor="middle">bidirectional fused battery connection</text>
+
+  <path class="power" d="M550 272 H632 V302" marker-end="url(#arrow-red)"/>
+  <rect class="component" x="632" y="264" width="282" height="46" rx="7"/>
+  <text class="label" x="773" y="285" text-anchor="middle">compute/logic branch only</text>
+  <text class="tiny" x="773" y="303" text-anchor="middle">system fuse → #2808-S → #2891 → 5V_SYS</text>
+
+  <path class="charge" d="M384 288 V322" marker-end="url(#arrow-orange)"/>
+  <text class="tiny" x="344" y="316" text-anchor="end">VBUS sense</text>
+  <path class="inhibit" d="M480 288 V322" marker-end="url(#arrow-purple)"/>
+  <text class="tiny" x="492" y="316">PGOOD</text>
+
+  <!-- Pin-level interlock -->
+  <rect class="panel" x="40" y="350" width="1520" height="680" rx="10"/>
+  <text class="section" x="60" y="384">2. Ordered revision-A PCB circuit and harness endpoints</text>
+
+  <!-- rails -->
+  <path class="rail3v3" d="M650 410 H1190"/>
+  <circle class="node-blue" cx="780" cy="410" r="5"/>
+  <circle class="node-blue" cx="1045" cy="410" r="5"/>
+  <text class="label" x="650" y="400">J1.1 → Pico pin 36 / 3V3(OUT)</text>
+  <path class="ground" d="M350 950 H1490"/>
+  <text class="label" x="1490" y="975" text-anchor="end">J1.2 / J2.3 / J3.3 → COMMON GND</text>
+
+  <!-- charger signals -->
+  <rect class="charger" x="60" y="448" width="250" height="164" rx="8"/>
+  <text class="label" x="185" y="477" text-anchor="middle">Adafruit #4755 signals</text>
+  <text class="pin" x="86" y="511">J2.1 VBUS</text>
+  <text class="small" x="86" y="531">raw USB/DC 5 V</text>
+  <text class="pin" x="86" y="570">J2.2 PGOOD</text>
+  <text class="small" x="86" y="591">active-low open drain</text>
+  <circle class="node" cx="310" cy="500" r="5"/>
+  <circle class="node-purple" cx="310" cy="565" r="5"/>
+
+  <!-- VBUS detector -->
+  <path class="charge" d="M310 500 H350"/>
+  <rect class="component" x="350" y="480" width="122" height="40" rx="5"/>
+  <text class="pin" x="411" y="505" text-anchor="middle">R2 47 kΩ</text>
+  <path class="charge" d="M472 500 H520"/>
+  <circle class="node" cx="500" cy="500" r="5"/>
+
+  <rect class="component" x="540" y="458" width="150" height="94" rx="8"/>
+  <text class="small" x="615" y="486" text-anchor="middle">Q1 2N3904BU</text>
+  <text class="pin" x="552" y="507">B</text>
+  <text class="pin" x="674" y="510">C</text>
+  <text class="pin" x="610" y="541">E</text>
+  <path class="wire" d="M520 500 H540"/>
+  <path class="inhibit" d="M690 480 H720 V565"/>
+  <path class="ground" d="M615 552 V950"/>
+
+  <path class="wire" d="M500 500 V650"/>
+  <rect class="component" x="451" y="650" width="98" height="40" rx="5"/>
+  <text class="pin" x="500" y="675" text-anchor="middle">R3 100 kΩ</text>
+  <path class="ground" d="M500 690 V950"/>
+  <text class="tiny" x="515" y="625">base → emitter pull-down</text>
+
+  <!-- CHARGE_ABSENT node -->
+  <path class="inhibit" d="M310 565 H895"/>
+  <circle class="node-purple" cx="720" cy="565" r="7"/>
+  <text class="label" x="735" y="551">CHARGE_ABSENT</text>
+  <text class="tiny" x="735" y="584">LOW = charge input present or uncertain</text>
+
+  <path class="rail3v3" d="M780 410 V448"/>
+  <rect class="component" x="734" y="448" width="92" height="42" rx="5"/>
+  <text class="pin" x="780" y="474" text-anchor="middle">R1 10 kΩ</text>
+  <path class="inhibit" d="M780 490 V565"/>
+  <circle class="node-purple" cx="780" cy="565" r="5"/>
+
+  <!-- Pico -->
+  <rect class="logic" x="60" y="690" width="250" height="164" rx="8"/>
+  <text class="label" x="185" y="718" text-anchor="middle">Raspberry Pi Pico 2</text>
+  <text class="pin" x="84" y="750">J1.3 GP3  RAIL_REQUEST</text>
+  <text class="pin" x="84" y="792">J1.5 CA → GP6 input</text>
+  <text class="pin" x="84" y="834">J1.4 GP12 SLEEP_REQUEST</text>
+  <circle class="node" cx="310" cy="745" r="5"/>
+  <circle class="node-purple" cx="310" cy="787" r="5"/>
+  <circle class="node" cx="310" cy="829" r="5"/>
+
+  <path class="inhibit" d="M310 787 H350 V565"/>
+  <circle class="node-purple" cx="350" cy="565" r="5"/>
+
+  <!-- request wires and pull-downs -->
+  <path class="logic-wire" d="M310 745 H790 V520 H935"/>
+  <circle class="node" cx="760" cy="745" r="5"/>
+  <rect class="component" x="720" y="770" width="80" height="38" rx="5"/>
+  <text class="pin" x="760" y="794" text-anchor="middle">R4 10 kΩ</text>
+  <path class="wire" d="M760 745 V770 M760 808 V950"/>
+
+  <path class="logic-wire" d="M310 829 H820 V665 H935"/>
+  <circle class="node" cx="820" cy="829" r="5"/>
+  <rect class="component" x="780" y="862" width="80" height="38" rx="5"/>
+  <text class="pin" x="820" y="886" text-anchor="middle">R6 10 kΩ</text>
+  <path class="wire" d="M820 829 V862 M820 900 V950"/>
+  <text class="tiny" x="680" y="938">request pull-downs: reset/broken wire = OFF</text>
+
+  <!-- SN74HC08N -->
+  <rect class="logic" x="900" y="446" width="290" height="342" rx="10"/>
+  <text class="label" x="1045" y="475" text-anchor="middle">SN74HC08N @ 3.3 V</text>
+  <text class="tiny" x="1045" y="494" text-anchor="middle">quad 2-input AND; two gates used</text>
+
+  <rect class="component" x="935" y="500" width="210" height="76" rx="7"/>
+  <text class="label" x="1040" y="526" text-anchor="middle">Gate 1 — motor rail</text>
+  <text class="pin" x="946" y="525">1</text>
+  <text class="pin" x="946" y="560">2</text>
+  <text class="pin" x="1124" y="549">3</text>
+  <text class="small" x="1040" y="558" text-anchor="middle">AND</text>
+
+  <rect class="component" x="935" y="640" width="210" height="76" rx="7"/>
+  <text class="label" x="1040" y="666" text-anchor="middle">Gate 2 — driver sleep</text>
+  <text class="pin" x="946" y="670">4</text>
+  <text class="pin" x="946" y="705">5</text>
+  <text class="pin" x="1124" y="689">6</text>
+  <text class="small" x="1040" y="698" text-anchor="middle">AND</text>
+
+  <path class="rail3v3" d="M1045 410 V446"/>
+  <text class="pin" x="1060" y="433">pin 14 VCC</text>
+  <path class="ground" d="M1045 788 V950"/>
+  <text class="pin" x="1060" y="812">pin 7 GND</text>
+  <text class="small" x="1045" y="746" text-anchor="middle">C1 shown at left: directly across pin 14 ↔ pin 7</text>
+  <text class="tiny" x="1045" y="767" text-anchor="middle">pins 9,10,12,13 → GND; outputs 8,11 → NC</text>
+
+  <!-- local decoupling capacitor -->
+  <path class="rail3v3" d="M855 410 V430"/>
+  <path class="wire" d="M838 430 H872 M838 442 H872"/>
+  <path class="ground" d="M855 442 V470"/>
+  <path class="ground" d="M838 470 H872 M843 479 H867 M849 488 H861"/>
+  <text class="pin" x="832" y="424" text-anchor="end">C1 100 nF</text>
+
+  <!-- CHARGE_ABSENT fanout into gates -->
+  <path class="inhibit" d="M895 565 V555 H935"/>
+  <path class="inhibit" d="M860 565 V700 H935"/>
+  <circle class="node-purple" cx="860" cy="565" r="5"/>
+
+  <!-- outputs -->
+  <path class="logic-wire" d="M1145 540 H1240"/>
+  <text class="pin" x="1160" y="526">J3.1 RAIL</text>
+  <circle class="node" cx="1240" cy="540" r="6"/>
+  <rect class="motor" x="1290" y="482" width="230" height="116" rx="8"/>
+  <text class="label" x="1405" y="512" text-anchor="middle">Pololu #2808-M</text>
+  <text class="pin" x="1310" y="547">CTRL</text>
+  <text class="small" x="1405" y="573" text-anchor="middle">LOW removes MOTOR_VIN</text>
+  <path class="logic-wire" d="M1240 540 H1290"/>
+  <rect class="component" x="1200" y="590" width="80" height="38" rx="5"/>
+  <text class="pin" x="1240" y="614" text-anchor="middle">R5 10 kΩ</text>
+  <path class="wire" d="M1240 540 V590 M1240 628 V950"/>
+
+  <path class="logic-wire" d="M1145 680 H1240"/>
+  <text class="pin" x="1160" y="666">J3.2 SLEEP</text>
+  <circle class="node" cx="1240" cy="680" r="6"/>
+  <rect class="motor" x="1290" y="642" width="230" height="116" rx="8"/>
+  <text class="label" x="1405" y="672" text-anchor="middle">DRV8833</text>
+  <text class="pin" x="1310" y="707">SLP / nSLEEP</text>
+  <text class="small" x="1405" y="733" text-anchor="middle">LOW disables H-bridges</text>
+  <path class="logic-wire" d="M1240 680 H1290"/>
+  <rect class="component" x="1200" y="748" width="80" height="38" rx="5"/>
+  <text class="pin" x="1240" y="772" text-anchor="middle">R7 4.7 kΩ</text>
+  <path class="wire" d="M1240 680 V748 M1240 786 V950"/>
+
+  <!-- behavior note -->
+  <rect class="note" x="60" y="978" width="1460" height="36" rx="6"/>
+  <text class="label" x="790" y="1002" text-anchor="middle">Any VBUS or valid PGOOD → CHARGE_ABSENT LOW → J3.1 RAIL LOW + J3.2 SLEEP LOW → motion disabled</text>
+</svg>

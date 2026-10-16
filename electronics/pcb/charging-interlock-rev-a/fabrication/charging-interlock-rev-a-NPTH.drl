@@ -1,0 +1,11 @@
+M48
+; GENERATED; non-plated mounting holes
+METRIC,TZ
+T01C2.2
+%
+T01
+X2.54Y21.59
+X35.56Y21.59
+X2.54Y2.54
+X35.56Y2.54
+M30

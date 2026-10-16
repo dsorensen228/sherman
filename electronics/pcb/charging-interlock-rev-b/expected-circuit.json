@@ -1,0 +1,16 @@
+{
+  "provenance": "Transcribed independently from W1 schematic and TI SN74HC08 page 3/onsemi 2N3904 page 1; not generated from design.json.",
+  "U1": {"1":"GP3","2":"CHARGE_ABSENT","3":"RAIL_EN","4":"GP12","5":"CHARGE_ABSENT","6":"SLEEP_EN","7":"GND","8":"NC8","9":"GND","10":"GND","11":"NC11","12":"GND","13":"GND","14":"3V3"},
+  "Q1": {"1":"GND","2":"QBASE","3":"CHARGE_ABSENT"},
+  "C1": {"1":"3V3","2":"GND"},
+  "R1": {"1":"3V3","2":"CHARGE_ABSENT"},
+  "R2": {"1":"VBUS","2":"QBASE"},
+  "R3": {"1":"QBASE","2":"GND"},
+  "R4": {"1":"GP3","2":"GND"},
+  "R5": {"1":"RAIL_EN","2":"GND"},
+  "R6": {"1":"GP12","2":"GND"},
+  "R7": {"1":"SLEEP_EN","2":"GND"},
+  "J1": {"1":"3V3","2":"GND","3":"GP3","4":"GP12","5":"CHARGE_ABSENT"},
+  "J2": {"1":"VBUS","2":"CHARGE_ABSENT","3":"GND"},
+  "J3": {"1":"RAIL_EN","2":"SLEEP_EN","3":"GND"}
+}

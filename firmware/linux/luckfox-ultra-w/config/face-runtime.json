@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "mode": "personality",
+  "expression": "calm",
+  "fps": 30,
+  "spi_hz": 40000000,
+  "renderer": "fast",
+  "renderer_library": "/opt/sherman/lib/libsherman_procedural_eyes_c.so",
+  "personality_library": "/opt/sherman/lib/libsherman_personality_c.so",
+  "personality_required": false,
+  "personality_tick_hz": 10,
+  "personality_state_file": "/userdata/sherman/personality.state",
+  "persistence_interval_s": 300,
+  "circadian_enabled": true,
+  "timezone": "EST5EDT,M3.2.0/2,M11.1.0/2",
+  "full_frame": false,
+  "seed": 23441885637722446
+}

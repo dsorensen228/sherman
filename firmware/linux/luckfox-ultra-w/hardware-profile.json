@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "profile_id": "sherman-luckfox-pico-ultra-w-bringup-v1",
+  "observed_at_utc": "2026-08-19T15:16:00Z",
+  "packet": {
+    "id": "P1-PLAT-001",
+    "parent_phase": 1,
+    "objective": "Record the known-good Ultra W RGB-release, SPI display, and CSI camera baseline.",
+    "non_goals": [
+      "Production image reproducibility",
+      "Formal SPI signal-integrity capture above 16 MHz",
+      "Motor or sensor GPIO allocation",
+      "Camera calibration"
+    ]
+  },
+  "board": {
+    "model": "Luckfox Pico Ultra W",
+    "soc_compatibles": [
+      "rockchip,rv1103g-38x38-ipc-v10",
+      "rockchip,rv1106g3"
+    ],
+    "pcb_revision": "not-yet-recorded",
+    "memory_mib_marketed": 256,
+    "storage": "eMMC",
+    "rootfs": "Buildroot 2023.02.6",
+    "kernel": "Linux 5.10.160 armv7l",
+    "sdk": {
+      "repository": "LuckfoxTECH/luckfox-pico",
+      "commit": "824b817f889c2cbff1d48fcdb18ab494a68f69d1",
+      "host_path": "/home/example/src/luckfox-pico",
+      "kernel_dts": "sysdrv/source/kernel/arch/arm/boot/dts/rv1106g-luckfox-pico-ultra.dts",
+      "kernel_dtsi": "sysdrv/source/kernel/arch/arm/boot/dts/rv1106-luckfox-pico-ultra-ipc.dtsi"
+    }
+  },
+  "display": {
+    "module": "Waveshare 1.9inch LCD Module SKU 23822",
+    "controller": "ST7789V2",
+    "geometry_px": {
+      "width": 320,
+      "height": 170
+    },
+    "pixel_format": "RGB565",
+    "device": "/dev/spidev0.0",
+    "known_good_max_hz": 40000000,
+    "conservative_fallback_hz": 16000000,
+    "bench_tested_max_hz": 40000000,
+    "deployed_runtime_hz": 40000000,
+    "full_frame_bytes": 108800,
+    "theoretical_full_frame_fps_at_known_good_max": 45.96,
+    "normal_face_region": {
+      "x": 28,
+      "y": 4,
+      "width": 264,
+      "height": 162,
+      "bytes": 85536
+    },
+    "measured_performance": {
+      "full_frame_40mhz_transfer_mean_ms": 31.81,
+      "face_region_40mhz_transfer_typical_ms": 23.9,
+      "fast_render_mean_ms": 2.278,
+      "python_ctypes_render_mean_ms": 2.687,
+      "integrated_render_animation_mean_ms": 4.4,
+      "stable_face_region_fps": 30,
+      "integrated_process_rss_kib": 12780,
+      "integrated_peak_temperature_millicelsius": 57079
+    },
+    "miso_used": false,
+    "rgb_parallel_disabled": true,
+    "pins": [
+      {
+        "signal": "VCC",
+        "header": "P1",
+        "physical_pin": 1,
+        "supply": "3.3V"
+      },
+      {
+        "signal": "DIN_MOSI",
+        "header": "P1",
+        "physical_pin": 19,
+        "soc_pin": "GPIO1_C2",
+        "function": "SPI0_M0_MOSI"
+      },
+      {
+        "signal": "CLK",
+        "header": "P1",
+        "physical_pin": 23,
+        "soc_pin": "GPIO1_C1",
+        "function": "SPI0_M0_CLK"
+      },
+      {
+        "signal": "CS",
+        "header": "P1",
+        "physical_pin": 24,
+        "soc_pin": "GPIO1_C0",
+        "function": "SPI0_M0_CS0"
+      },
+      {
+        "signal": "GND",
+        "header": "P1",
+        "physical_pin": 25,
+        "supply": "GND"
+      },
+      {
+        "signal": "DC",
+        "header": "P1",
+        "physical_pin": 13,
+        "soc_pin": "GPIO1_D0",
+        "gpiochip": "/dev/gpiochip1",
+        "line_offset": 24,
+        "legacy_global_gpio": 56,
+        "boot_state": "not-yet-qualified"
+      },
+      {
+        "signal": "RST",
+        "header": "P1",
+        "physical_pin": 15,
+        "soc_pin": "GPIO1_D1",
+        "gpiochip": "/dev/gpiochip1",
+        "line_offset": 25,
+        "legacy_global_gpio": 57,
+        "boot_state": "not-yet-qualified"
+      },
+      {
+        "signal": "BL",
+        "header": "P1",
+        "physical_pin": 26,
+        "soc_pin": "GPIO1_D2",
+        "gpiochip": "/dev/gpiochip1",
+        "line_offset": 26,
+        "legacy_global_gpio": 58,
+        "alternate_function": "PWM0_M1",
+        "boot_state": "not-yet-qualified"
+      }
+    ]
+  },
+  "camera": {
+    "module": "Luckfox SC3336 3MP Camera B",
+    "sensor_compatible": "smartsens,sc3336",
+    "sensor_device_tree_path": "/i2c@ff470000/sc3336@30",
+    "sensor_i2c": "I2C4_M2",
+    "sensor_i2c_pins": [
+      "GPIO3_C7",
+      "GPIO3_D0"
+    ],
+    "csi_device_tree_path": "/csi2-dphy0",
+    "media_devices": [
+      "/dev/media0",
+      "/dev/media1"
+    ],
+    "pipeline_process": "rkipc",
+    "rtsp_main": "/live/0",
+    "rtsp_sub": "/live/1",
+    "rtsp_port": 554
+  },
+  "validation": {
+    "rgb_disabled_live_device_tree": "verified-2026-08-19",
+    "spidev0_0_present": "verified-2026-08-19",
+    "spi_camera_coexistence_after_reboot": "verified-2026-08-19",
+    "sc3336_csi_kernel_stream": "verified-2026-08-19",
+    "rtsp_paths": "verified-from-pinned-sdk-source",
+    "rtsp_end_to_end_decode": "verified-2026-08-19-live0-and-live1",
+    "camera_pixel_quality": "not-evaluated-lens-capped-and-dangling"
+  },
+  "known_good": {
+    "boot_partition": "/dev/block/by-name/boot",
+    "boot_partition_bytes": 33554432,
+    "pre_change_boot_sha256": "6516d188102760d459dff2dd8a664f4a44b0d9bf5ff97f64dbf60643cdfeee8b",
+    "pre_change_cfg_sha256": "8b0a329ac46d3e9540410edf2a6387cb8a8054573502626834a8bda5993bd612",
+    "post_change_boot_sha256": "e20dc27eaf002d7ecccb9015af093cd03ad46aeb1c5e0803859c638ad53f5cce",
+    "post_change_cfg_sha256": "ff709faeaae3fc0b2071d4a20fdef93230307144dcc22d5121abbe1da97e95d6",
+    "backup_host": "build-host",
+    "backup_directory": "/home/example/backups/robot-host/2026-08-19"
+  }
+}

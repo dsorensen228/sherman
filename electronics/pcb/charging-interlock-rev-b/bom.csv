@@ -1,0 +1,15 @@
+reference,quantity,value,manufacturer_part,footprint
+U1,1,SN74HC08N,Texas Instruments SN74HC08N,Package_DIP:DIP-14_W7.62mm_Socket
+Q1,1,2N3904BU,onsemi 2N3904BU,Package_TO_SOT_THT:TO-92_Inline_Wide
+C1,1,100nF,KEMET C315C104K5R5TA,Capacitor_THT:C_Disc_D3.8mm_W2.6mm_P2.50mm
+R1,1,10k,Yageo MFR-25FRF52-10K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+R2,1,47k,Yageo MFR-25FRF52-47K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+R3,1,100k,Yageo MFR-25FBF52-100K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+R4,1,10k,Yageo MFR-25FRF52-10K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+R5,1,10k,Yageo MFR-25FRF52-10K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+R6,1,10k,Yageo MFR-25FRF52-10K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+R7,1,4.7k,Yageo MFR-25FRF52-4K7,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+J1,1,PICO,Samtec TSW-140-07-L-S cut to 5 positions,Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical
+J2,1,CHARGER,Samtec TSW-140-07-L-S cut to 3 positions,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical_OpenSilk
+J3,1,OUTPUTS,Samtec TSW-140-07-L-S cut to 3 positions,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical
+U1-SOCKET,1,14-pin DIP socket,TE 1-2199298-3,Included in U1 assembly envelope

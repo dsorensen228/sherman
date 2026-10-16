@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name "Capacitor_THT")(type "KiCad")(uri "${KIPRJMOD}/vendor/Capacitor_THT.pretty")(options "")(descr "KiCad 10.0.6 official footprint snapshot"))
+  (lib (name "Connector_PinHeader_2.54mm")(type "KiCad")(uri "${KIPRJMOD}/vendor/Connector_PinHeader_2.54mm.pretty")(options "")(descr "KiCad 10.0.6 official footprint snapshot"))
+  (lib (name "MountingHole")(type "KiCad")(uri "${KIPRJMOD}/vendor/MountingHole.pretty")(options "")(descr "KiCad 10.0.6 official footprint snapshot"))
+  (lib (name "Package_DIP")(type "KiCad")(uri "${KIPRJMOD}/vendor/Package_DIP.pretty")(options "")(descr "KiCad 10.0.6 official footprint snapshot"))
+  (lib (name "Package_TO_SOT_THT")(type "KiCad")(uri "${KIPRJMOD}/vendor/Package_TO_SOT_THT.pretty")(options "")(descr "KiCad 10.0.6 official footprint snapshot"))
+  (lib (name "Resistor_THT")(type "KiCad")(uri "${KIPRJMOD}/vendor/Resistor_THT.pretty")(options "")(descr "KiCad 10.0.6 official footprint snapshot"))
+)

@@ -1,0 +1,6 @@
+(version 1)
+(rule "Conservative copper clearance" (constraint clearance (min 0.3048mm)))
+(rule "Signal track width" (constraint track_width (min 0.4064mm)))
+(rule "Copper to board edge" (constraint edge_clearance (min 0.508mm)))
+(rule "Hole spacing" (constraint hole_to_hole (min 0.3048mm)))
+(rule "Component courtyard spacing" (constraint courtyard_clearance (min 0.25mm)))

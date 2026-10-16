@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "api_url": "http://jarvis.example:8000",
+  "source_device_id": "robot-example",
+  "response_device_id": "voice-example",
+  "credentials_file": "/etc/sherman/jarvis-credentials.json",
+  "alsa_device": "plughw:0,0",
+  "volume": 0.32,
+  "mean_interval_s": 3600,
+  "minimum_interval_s": 900,
+  "face_health_file": "/run/sherman-face.health.json",
+  "history_file": "/userdata/sherman/banter-history.json",
+  "health_file": "/run/sherman-banter.health.json"
+}
